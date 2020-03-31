@@ -1,7 +1,6 @@
 package com.cmlteam.video_reply_telegram_bot;
 
 import com.cmlteam.video_reply_telegram_bot.controllers.MainController;
-import com.cmlteam.video_reply_telegram_bot.services.SampleService;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,7 +15,6 @@ import javax.sql.DataSource;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.text.MatchesPattern.matchesPattern;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -27,14 +25,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class MainControllerTest {
   @Autowired private MockMvc mockMvc;
 
-  @MockBean private SampleService service;
-
   @MockBean private DataSource dataSource;
 
   @Before
-  public void setup() {
-    when(service.getDbVersion()).thenReturn("TEST_DB");
-  }
+  public void setup() {}
 
   @Test
   public void simpleGetTest() throws Exception {

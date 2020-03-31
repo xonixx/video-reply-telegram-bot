@@ -14,12 +14,16 @@ spring:
     initialSize: 5
     removeAbandoned: true
   jpa:
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL57Dialect
     hibernate:
       ddl-auto: update
 
   liquibase:
     enabled: false # manual
     change-log: classpath:changelog.xml
+
+  main.web-application-type: none # don't run web context now since we use polling for bot
 
 #logging:
 #  level:
@@ -43,3 +47,8 @@ elk:
   host: elk.cmlteam.com
   port: 10443
   application: video_reply_telegram_bot
+
+telegram-bot:
+  admin_user: EXTERNAL
+  token: EXTERNAL
+  

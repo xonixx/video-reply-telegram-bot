@@ -1,7 +1,6 @@
 package com.cmlteam.video_reply_telegram_bot.controllers;
 
 import com.cmlteam.video_reply_telegram_bot.model.ServerStatus;
-import com.cmlteam.video_reply_telegram_bot.services.SampleService;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,8 +19,6 @@ import java.util.Objects;
 @RestController
 public class MainController {
 
-  private final SampleService sampleService;
-
   @ApiOperation(value = "Test GET endpoint")
   @GetMapping(value = "test")
   public String test() {
@@ -36,12 +33,6 @@ public class MainController {
             template.getForObject(
                 "https://l2c1x1.com/services/misc/server-stats", ServerStatus.class));
     return "" + status.getTotalAccounts();
-  }
-
-  @ApiOperation(value = "Show the DB version")
-  @GetMapping(value = "testdb")
-  public String testdb() {
-    return sampleService.getDbVersion();
   }
 
   @ApiOperation(value = "Test POST endpoint")
