@@ -4,6 +4,7 @@ import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.aop.interceptor.SimpleAsyncUncaughtExceptionHandler;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration;
+import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
@@ -19,6 +20,7 @@ import java.util.concurrent.Executors;
 
 @Configuration
 @EnableAutoConfiguration(exclude = {JacksonAutoConfiguration.class})
+@ConfigurationPropertiesScan(basePackages = "com.cmlteam")
 @EnableScheduling
 @EnableAsync
 public class AppConfiguration implements AsyncConfigurer, SchedulingConfigurer {

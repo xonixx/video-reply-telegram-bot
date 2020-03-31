@@ -14,7 +14,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import javax.sql.DataSource;
 
 import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.text.MatchesPattern.matchesPattern;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -36,14 +35,6 @@ public class MainControllerTest {
         .perform(get("/test"))
         .andExpect(status().isOk())
         .andExpect(content().string(equalTo("Hello CML!")));
-  }
-
-  @Test
-  public void simpleWsTest() throws Exception {
-    mockMvc
-        .perform(get("/testws"))
-        .andExpect(status().isOk())
-        .andExpect(content().string(matchesPattern("\\d+")));
   }
 
   @Test
