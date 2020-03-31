@@ -3,6 +3,8 @@ server:
   port: 8080
 
 spring:
+  profiles:
+    include: "videos"
   datasource:
     url: jdbc:mysql://localhost/video_reply_telegram_bot?useUnicode=true&rewriteBatchedStatements=true&useSSL=false
     username: video_reply_telegram_bot

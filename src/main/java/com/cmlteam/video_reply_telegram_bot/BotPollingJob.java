@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 @Component
@@ -22,6 +23,7 @@ import java.util.List;
 @Slf4j
 public class BotPollingJob {
   private final TelegramBot telegramBot;
+  private final VideosListProperties videosListProperties;
 
   private final GetUpdates getUpdates = new GetUpdates();
 
@@ -52,5 +54,10 @@ public class BotPollingJob {
 
   private String toPrettyString(Object obj) {
     return gson.toJson(obj);
+  }
+
+  @PostConstruct
+  public void postConstruct() {
+    log.info("Videos: " + videosListProperties.getList().size());
   }
 }
