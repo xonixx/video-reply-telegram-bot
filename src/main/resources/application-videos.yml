@@ -87,5 +87,69 @@ videos:
         - "сталин"
         - "right"
         - "correct"
-
-
+    - file-id: "BAACAgIAAxkBAANOXoUQsuK-4RL-svmTUKtGdk29ZFYAAsAFAAJy5yhIjhVpjPWet9wYBA"
+      file-unique-id: "AgADwAUAAnLnKEg"
+      keywords:
+        - "ну бред же"
+        - "бред"
+    - file-id: "BAACAgIAAxkBAANQXoURPicXixbqwEu4Nd-o3a6XbWkAAvcFAAJNkyhI09L6fM-tiV8YBA"
+      file-unique-id: "AgAD9wUAAk2TKEg"
+      keywords:
+        - "господи допоможи"
+        - "господи помоги"
+        - "господи"
+        - "тимошенко"
+    - file-id: "BAACAgIAAxkBAANSXoUR3W1gre_LOHg7A3n4UtO4BUUAAvgFAAJNkyhISJszZ62X1YUYBA"
+      file-unique-id: "AgAD-AUAAk2TKEg"
+      keywords:
+        - "до пизды этот продукт"
+        - "похуй"
+    - file-id: "BAACAgIAAxkBAANUXoUSQ9vufn9QQHApQf1CtdP0uwQAAgQGAAJNkyhIIsmwou4gpHEYBA"
+      file-unique-id: "AgADBAYAAk2TKEg"
+      keywords:
+        - "ну пока"
+        - "bye"
+        - "see you"
+        - "до скорого"
+    - file-id: "BAACAgQAAxkBAANWXoUTg2PWzXJxy_n5IkvUDn9HPxoAAjsAA1Hy9VCS_oQQ5aqe0xgE"
+      file-unique-id: "AgADOwADUfL1UA"
+      keywords:
+        - "всё"
+        - "все"
+        - "путин"
+    - file-id: "BAACAgIAAxkBAANYXoUU-hE3WAoVXbHeBtOILxo61kAAAsEFAAJy5yhI4Hm4awl_K6oYBA"
+      file-unique-id: "AgADwQUAAnLnKEg"
+      keywords:
+        - "естественно"
+        - "конечно"
+        - "sure"
+        - "да"
+        - "yes"
+    - file-id: "BAACAgIAAxkBAANaXoUVukmFGyHvzJXpAAEoF0SRTlj-AALCBQACcucoSBOReaWKDbFKGAQ"
+      file-unique-id: "AgADwgUAAnLnKEg"
+      keywords:
+        - "мне насрать"
+        - "мне пофиг"
+        - "мне все равно"
+    - file-id: "BAACAgIAAxkBAANcXoUWYAdBp9-FLzAYYvFxuu1o9WwAAsMFAAJy5yhIoj_UWHHOyT4YBA"
+      file-unique-id: "AgADwwUAAnLnKEg"
+      keywords:
+        - "крик ааа"
+    - file-id: "BAACAgIAAxkBAANeXoUWzTNAeTKckpbCh3yAM8JEmTAAAsQFAAJy5yhI9ghuIAOZThwYBA"
+      file-unique-id: "AgADxAUAAnLnKEg"
+      keywords:
+        - "не понял, но интересно"
+        - "непонятно"
+    - file-id: "BAACAgIAAxkBAANgXoUXee57fcutSdMBOb8jNNRkqqAAAsUFAAJy5yhIiRsrwWiiCWwYBA"
+      file-unique-id: "AgADxQUAAnLnKEg"
+      keywords:
+        - "ты че дурак"
+        - "ты чё дурак"
+        - "ты дурак"
+    - file-id: "BAACAgIAAxkBAANiXoUYJDspkC97m3PjzzRQTe3yK0QAAsYFAAJy5yhIvmUZ0Xq8mVwYBA"
+      file-unique-id: "AgADxgUAAnLnKEg"
+      keywords:
+        - "мы в дерьме"
+        - "все плохо"
+        - "всё плохо"
+        - "очень плохо"
