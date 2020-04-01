@@ -14,6 +14,7 @@ public class Video {
 
   public boolean matches(String query) {
     String queryLc = query.toLowerCase();
-    return keywords.stream().anyMatch(s -> queryLc.contains(s) || "*".equals(queryLc));
+    return keywords.stream()
+        .anyMatch(s -> queryLc.contains(s) || s.contains(queryLc) || "*".equals(queryLc));
   }
 }

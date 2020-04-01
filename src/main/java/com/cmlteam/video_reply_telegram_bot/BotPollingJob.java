@@ -49,7 +49,8 @@ public class BotPollingJob {
           //        telegramBot.execute(new SendVideo(message.chat().id(), fileId).caption(fileId));
           telegramBot.execute(
               new SendMessage(
-                  message.chat().id(), "file-id: " + fileId + "\nfile-unique-id: " + fileUniqueId));
+                  message.chat().id(),
+                  "file-id: \"" + fileId + "\"\nfile-unique-id: \"" + fileUniqueId + "\""));
         }
       }
 
