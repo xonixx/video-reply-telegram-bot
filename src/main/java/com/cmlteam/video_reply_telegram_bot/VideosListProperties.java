@@ -13,11 +13,4 @@ import java.util.List;
 @Setter
 public class VideosListProperties {
   private List<Video> list;
-
-  @Getter
-  @Setter
-  public static class Video {
-    private String id;
-    private List<String> keywords;
-  }
 }
