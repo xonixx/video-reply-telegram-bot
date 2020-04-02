@@ -2,7 +2,6 @@ package com.cmlteam.video_reply_telegram_bot;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.model.InlineQuery;
 import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.model.Update;
@@ -24,7 +23,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class BotPollingJob {
-  private final TelegramBot telegramBot;
+  private final TelegramBotWrapper telegramBot;
   private final VideosListService videosListService;
 
   private final GetUpdates getUpdates = new GetUpdates();

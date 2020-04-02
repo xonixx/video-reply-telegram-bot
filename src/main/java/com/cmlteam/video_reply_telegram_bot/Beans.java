@@ -9,12 +9,12 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class Beans {
   @Bean
-  public TelegramBot telegramBot(BotProperties botProperties) {
+  public TelegramBotWrapper telegramBotWrapper(BotProperties botProperties) {
     TelegramBot telegramBot = new TelegramBot(botProperties.getToken());
     GetMeResponse response = telegramBot.execute(new GetMe());
     if (response.user() == null) {
       throw new IllegalArgumentException("bot token is incorrect");
     }
-    return telegramBot;
+    return new TelegramBotWrapper(telegramBot);
   }
 }
