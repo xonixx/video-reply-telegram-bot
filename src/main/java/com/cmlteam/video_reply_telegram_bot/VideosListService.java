@@ -14,6 +14,8 @@ import java.util.stream.Collectors;
 public class VideosListService {
   private final VideosListProperties videosListProperties;
 
+  public static final int MAX_ALLOWED_INLINE_RESULTS = 50;
+
   /**
    * @param query user query string
    * @return list of file_ids of videos stored in telegram
@@ -21,6 +23,7 @@ public class VideosListService {
   List<Video> searchVideo(String query) {
     return videosListProperties.getList().stream()
         .filter(v -> v.matches(query))
+        .limit(MAX_ALLOWED_INLINE_RESULTS)
         .collect(Collectors.toList());
   }
 
