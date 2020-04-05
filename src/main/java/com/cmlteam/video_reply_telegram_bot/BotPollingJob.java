@@ -9,22 +9,22 @@ import com.pengrad.telegrambot.model.Video;
 import com.pengrad.telegrambot.model.request.InlineQueryResult;
 import com.pengrad.telegrambot.model.request.InlineQueryResultCachedVideo;
 import com.pengrad.telegrambot.request.AnswerInlineQuery;
+import com.pengrad.telegrambot.request.ForwardMessage;
 import com.pengrad.telegrambot.request.GetUpdates;
 import com.pengrad.telegrambot.request.SendMessage;
 import com.pengrad.telegrambot.response.GetUpdatesResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
-@Component
 @RequiredArgsConstructor
 @Slf4j
 public class BotPollingJob {
   private final TelegramBotWrapper telegramBot;
   private final VideosListService videosListService;
+  private final long adminUser;
 
   private final GetUpdates getUpdates = new GetUpdates();
 
@@ -41,15 +41,15 @@ public class BotPollingJob {
       //      telegramBot.execute(new SendMessage(message.chat().id(), "" + update.updateId()));
 
       if (message != null) {
-        Video video = message.video();
-        if (video != null) {
-          String fileId = video.fileId();
-          String fileUniqueId = video.fileUniqueId();
-          //        telegramBot.execute(new SendVideo(message.chat().id(), fileId).caption(fileId));
-          telegramBot.execute(
-              new SendMessage(
-                  message.chat().id(),
-                  "file-id: \"" + fileId + "\"\nfile-unique-id: \"" + fileUniqueId + "\""));
+        Long chatId = message.chat().id();
+
+        if (isAdminUser(chatId)) {
+          Video video = message.video();
+          if (video != null) {
+            displayVideoFileIds(chatId, video);
+          }
+        } else {
+          forwardMessageToAdmin(message.messageId(), chatId);
         }
       }
 
@@ -74,6 +74,23 @@ public class BotPollingJob {
 
       getUpdates.offset(update.updateId() + 1);
     }
+  }
+
+  private void forwardMessageToAdmin(Integer messageId, Long chatId) {
+    telegramBot.execute(new ForwardMessage(adminUser, chatId, messageId));
+  }
+
+  private boolean isAdminUser(Long chatId) {
+    return adminUser == chatId;
+  }
+
+  private void displayVideoFileIds(Long chatId, Video video) {
+    String fileId = video.fileId();
+    String fileUniqueId = video.fileUniqueId();
+    //        telegramBot.execute(new SendVideo(message.chat().id(), fileId).caption(fileId));
+    telegramBot.execute(
+        new SendMessage(
+            chatId, "file-id: \"" + fileId + "\"\nfile-unique-id: \"" + fileUniqueId + "\""));
   }
 
   private final Gson gson = new GsonBuilder().setPrettyPrinting().create();

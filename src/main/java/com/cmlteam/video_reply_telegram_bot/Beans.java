@@ -17,4 +17,12 @@ public class Beans {
     }
     return new TelegramBotWrapper(telegramBot);
   }
+
+  @Bean
+  public BotPollingJob botPollingJob(
+      BotProperties botProperties,
+      TelegramBotWrapper telegramBotWrapper,
+      VideosListService videosListService) {
+    return new BotPollingJob(telegramBotWrapper, videosListService, botProperties.getAdminUser());
+  }
 }

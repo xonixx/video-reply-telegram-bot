@@ -10,6 +10,6 @@ import org.springframework.context.annotation.Configuration;
 @Getter
 @Setter
 public class BotProperties {
-  private String adminUser;
+  private long adminUser;
   private String token;
 }
