@@ -5,35 +5,12 @@ server:
 spring:
   profiles:
     include: "videos"
-  datasource:
-    url: jdbc:mysql://localhost/video_reply_telegram_bot?useUnicode=true&rewriteBatchedStatements=true&useSSL=false
-    username: video_reply_telegram_bot
-    password: video_reply_telegram_bot
-    driverClassName: com.mysql.jdbc.Driver
-    maxActive: 15
-    maxIdle: 5
-    minIdle: 2
-    initialSize: 5
-    removeAbandoned: true
-  jpa:
-    database: mysql
-    database-platform: org.hibernate.dialect.MySQL57Dialect
-    hibernate:
-      ddl-auto: update
-
-  liquibase:
-    enabled: false # manual
-    change-log: classpath:changelog.xml
 
   main.web-application-type: none # don't run web context now since we use polling for bot
 
 #logging:
 #  level:
 #    org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping: TRACE
-
-liquibase:
-  # TODO change the value below to true to enable liquibase
-  manual: false
 
 logRestRequestWebInterceptor:
   enabled: true
