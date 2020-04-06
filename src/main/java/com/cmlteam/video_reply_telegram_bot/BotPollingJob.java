@@ -24,6 +24,7 @@ import java.util.List;
 public class BotPollingJob {
   private final TelegramBotWrapper telegramBot;
   private final VideosListService videosListService;
+  private final VideosBackupper videosBackupper;
   private final long adminUser;
 
   private final GetUpdates getUpdates = new GetUpdates();
@@ -44,9 +45,14 @@ public class BotPollingJob {
         Long chatId = message.chat().id();
 
         if (isAdminUser(chatId)) {
-          Video video = message.video();
-          if (video != null) {
-            displayVideoFileIds(chatId, video);
+          String text = message.text();
+          if ("/backup".equals(text)) {
+             videosBackupper.startBackup(adminUser);
+          } else {
+            Video video = message.video();
+            if (video != null) {
+              displayVideoFileIds(chatId, video);
+            }
           }
         } else {
           forwardMessageToAdmin(message.messageId(), chatId);

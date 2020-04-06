@@ -8,10 +8,10 @@ import javax.annotation.PostConstruct;
 
 @SpringBootApplication
 @ComponentScan(basePackages = "com.cmlteam")
-public class VideoReplyTelegramBotApplication {
+public class VideoReplyBotApplication {
 
   public static void main(String[] args) {
-    SpringApplication.run(VideoReplyTelegramBotApplication.class, args);
+    SpringApplication.run(VideoReplyBotApplication.class, args);
   }
 
   @PostConstruct

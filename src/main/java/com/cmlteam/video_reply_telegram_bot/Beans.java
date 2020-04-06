@@ -19,10 +19,21 @@ public class Beans {
   }
 
   @Bean
+  VideosBackupper videosBackupper(
+      BotProperties botProperties,
+      TelegramBotWrapper telegramBotWrapper,
+      VideosListProperties videosListProperties) {
+    return new VideosBackupper(
+        botProperties.getBackupFolder(), telegramBotWrapper, videosListProperties);
+  }
+
+  @Bean
   public BotPollingJob botPollingJob(
       BotProperties botProperties,
       TelegramBotWrapper telegramBotWrapper,
-      VideosListService videosListService) {
-    return new BotPollingJob(telegramBotWrapper, videosListService, botProperties.getAdminUser());
+      VideosListService videosListService,
+      VideosBackupper videosBackupper) {
+    return new BotPollingJob(
+        telegramBotWrapper, videosListService, videosBackupper, botProperties.getAdminUser());
   }
 }

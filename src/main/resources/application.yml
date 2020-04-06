@@ -28,6 +28,7 @@ elk:
   application: video_reply_telegram_bot
 
 telegram-bot:
-  admin_user: EXTERNAL
-  token: EXTERNAL
+  admin-user: 0 # EXTERNAL
+  token: # EXTERNAL
+  backup-folder: # EXTERNAL
   
