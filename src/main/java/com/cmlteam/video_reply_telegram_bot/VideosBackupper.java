@@ -18,6 +18,7 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 public class VideosBackupper {
+  private static final int TIMEOUT = 10_000;
   private final String backupFolder;
   private final String token;
   private final TelegramBotWrapper telegramBot;
@@ -33,14 +34,22 @@ public class VideosBackupper {
   @Async
   public void startBackup(long userToInform) {
     List<Video> videos = videosListProperties.getList();
+
+    int total = videos.size();
+
     telegramBot.execute(
-        new SendMessage(userToInform, "Starting backup for " + videos.size() + " videos..."));
+        new SendMessage(userToInform, "Starting backup for " + total + " videos..."));
 
     long t0 = System.currentTimeMillis();
 
+    int new_ = 0;
+
     try {
       for (Video video : videos) {
-        backupVideo(video);
+        boolean isNew = backupVideo(video);
+        if (isNew) {
+          new_++;
+        }
       }
     } catch (Exception ex) {
       log.error("", ex);
@@ -48,11 +57,18 @@ public class VideosBackupper {
     }
 
     telegramBot.execute(
-        new SendMessage(userToInform, "Done in " + Util.renderDurationFromStart(t0)));
+        new SendMessage(
+            userToInform,
+            "Downloaded "
+                + new_
+                + " new out of total "
+                + total
+                + " videos in "
+                + Util.renderDurationFromStart(t0)));
   }
 
   @SneakyThrows
-  private void backupVideo(Video video) {
+  private boolean backupVideo(Video video) {
     GetFileResponse fileResponse = telegramBot.execute(new GetFile(video.getFileId()));
 
     File file = fileResponse.file();
@@ -63,11 +79,16 @@ public class VideosBackupper {
 
     log.info("Downloading {} : {}... ", video.getFileId(), videoUrl);
 
-    FileUtils.copyURLToFile(
-        new URL(videoUrl),
-        new java.io.File(backupFolder, video.getFileUniqueId() + ".mp4"),
-        10_000,
-        10_000);
+    java.io.File fileDestination = new java.io.File(backupFolder, video.getFileUniqueId() + ".mp4");
+
+    if (fileDestination.exists()) {
+      log.info("EXISTING");
+      return false;
+    } else {
+      log.info("NEW");
+      FileUtils.copyURLToFile(new URL(videoUrl), fileDestination, TIMEOUT, TIMEOUT);
+      return true;
+    }
   }
 
   private String formFileDlUrl(String filePath) {
