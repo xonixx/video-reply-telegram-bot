@@ -43,11 +43,12 @@ public class BotPollingJob {
 
       if (message != null) {
         Long chatId = message.chat().id();
+        Long fromId = message.from().id().longValue();
 
-        if (isAdminUser(chatId)) {
+        if (isAdminUser(fromId)) {
           String text = message.text();
           if ("/backup".equals(text)) {
-             videosBackupper.startBackup(adminUser);
+            videosBackupper.startBackup(adminUser);
           } else {
             Video video = message.video();
             if (video != null) {
