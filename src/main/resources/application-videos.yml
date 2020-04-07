@@ -234,7 +234,7 @@ videos:
     - file-id: "BAACAgIAAxkBAANeXoUWzTNAeTKckpbCh3yAM8JEmTAAAsQFAAJy5yhI9ghuIAOZThwYBA"
       file-unique-id: "AgADxAUAAnLnKEg"
       keywords:
-        - "не понял, но интересно"
+        - "не понял но интересно"
         - "непонятно"
         - "яннп"
         - "wtf"
@@ -400,8 +400,8 @@ videos:
       file-unique-id: "AgADowcAAofZMUg"
       keywords:
         - "фу как некультурно"
-    - file-id: "BAACAgIAAxkBAAOkXoYaiE_CI4l0GNRub_YcDVh-mVsAAqYHAAKH2TFIuKqC0kNgercYBA"
-      file-unique-id: "AgADpgcAAofZMUg"
+    - file-id: "BAACAgIAAxkBAAIBBV6NAAEYUT7ofBStnRj8FCfHxobargACJAcAAgvhaUij87_buLDL_xgE"
+      file-unique-id: "AgADJAcAAgvhaUg"
       keywords:
         - "нет"
         - "no"
@@ -490,6 +490,13 @@ videos:
       file-unique-id: "AgADwQcAAofZMUg"
       keywords:
         - "минут 10 15 пятого"
-
-
-
+    - file-id: "BAACAgIAAxkBAAIBB16NAAHlPzBEkmXPPwmcqcJ_LoWTugACKAcAAgvhaUhuQXnYIAEg6RgE"
+      file-unique-id: "AgADKAcAAgvhaUg"
+      keywords:
+        - "да ты заебал"
+        - "скриптонит"
+    - file-id: "BAACAgIAAxkBAAIBCV6NArM8YzNsNMyr_1pHCbKNay5jAAItBwACC-FpSPxEY0TxeVO2GAQ"
+      file-unique-id: "AgADLQcAAgvhaUg"
+      keywords:
+        - "но почему"
+        - "but why"
