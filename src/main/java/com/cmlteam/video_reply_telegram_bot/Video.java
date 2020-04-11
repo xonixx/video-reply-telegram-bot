@@ -12,9 +12,7 @@ public class Video {
   private String fileUniqueId;
   private List<String> keywords;
 
-  public boolean matches(String query) {
-    String queryLc = query.toLowerCase();
-    return keywords.stream()
-        .anyMatch(s -> queryLc.contains(s) || s.contains(queryLc) || "*".equals(queryLc));
+  public boolean matches(SearchStringMatcher searchStringMatcher, String query) {
+    return keywords.stream().anyMatch(s -> searchStringMatcher.matches(s, query));
   }
 }

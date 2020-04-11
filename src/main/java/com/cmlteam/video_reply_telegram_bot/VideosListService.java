@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class VideosListService {
   private final VideosListProperties videosListProperties;
+  private final SearchStringMatcher searchStringMatcher;
 
   public static final int MAX_ALLOWED_INLINE_RESULTS = 50;
 
@@ -24,7 +25,7 @@ public class VideosListService {
   List<Video> searchVideo(String query) {
     List<Video> res =
         videosListProperties.getList().stream()
-            .filter(v -> v.matches(query))
+            .filter(v -> v.matches(searchStringMatcher, query))
             .limit(MAX_ALLOWED_INLINE_RESULTS)
             .collect(Collectors.toList());
     Collections.shuffle(res);
