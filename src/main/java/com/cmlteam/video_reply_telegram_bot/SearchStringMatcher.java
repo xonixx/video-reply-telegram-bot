@@ -1,5 +1,6 @@
 package com.cmlteam.video_reply_telegram_bot;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -17,6 +18,6 @@ public class SearchStringMatcher {
     if (str == null) {
       return null;
     }
-    return str.toLowerCase().replace("ё", "е");
+    return StringUtils.replaceChars(str.toLowerCase(), "ё", "е");
   }
 }

@@ -18,5 +18,10 @@ public class SearchStringMatcherTest {
     assertTrue(searchStringMatcher.matches("наши полномочия всё окончены", "полномочия всё"));
     assertTrue(searchStringMatcher.matches("наши полномочия всё окончены", "полномочия все"));
     assertTrue(searchStringMatcher.matches("наши полномочия всё окончены", "полном"));
+
+    assertTrue(searchStringMatcher.matches("наши полномочия всё окончены", "полноМочИЯ"));
+    assertTrue(searchStringMatcher.matches("наши полномочия всё окончены", "полномочия всЁ"));
+    assertTrue(searchStringMatcher.matches("наши полномочия всё окончены", "ПОЛНомочия все"));
+    assertTrue(searchStringMatcher.matches("наши полномочия всё окончены", "ПОЛНом"));
   }
 }
