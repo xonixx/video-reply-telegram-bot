@@ -25,7 +25,9 @@ public class SearchStringMatcher {
 
   private boolean matches0(String keywordNormalized, String queryNormalized) {
     return queryNormalized.contains(keywordNormalized)
-        || Pattern.compile("\\b" + queryNormalized).matcher(keywordNormalized).find();
+        || Pattern.compile("\\b" + Pattern.quote(queryNormalized))
+            .matcher(keywordNormalized)
+            .find();
   }
 
   private String normalize(String str) {

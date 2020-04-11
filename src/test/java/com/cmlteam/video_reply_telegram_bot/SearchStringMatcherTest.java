@@ -46,4 +46,12 @@ public class SearchStringMatcherTest {
     assertFalse(searchStringMatcher.matches("наши полномочия все окончены", "аши"));
     assertFalse(searchStringMatcher.matches("наши полномочия все окончены", "мочия"));
   }
+
+  @Test
+  void testSpecialChars() {
+    assertFalse(searchStringMatcher.matches("строка", "смех"));
+    assertFalse(searchStringMatcher.matches("строка", "]["));
+    assertFalse(searchStringMatcher.matches("строка", ")("));
+    assertFalse(searchStringMatcher.matches("строка", "$&*?"));
+  }
 }
