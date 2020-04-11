@@ -2,6 +2,7 @@ package com.cmlteam.video_reply_telegram_bot;
 
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class SearchStringMatcherTest {
@@ -36,5 +37,13 @@ public class SearchStringMatcherTest {
     assertTrue(searchStringMatcher.matches("наши полномочия все окончены", "gjKYjVjXBz"));
     assertTrue(searchStringMatcher.matches("наши полномочия все окончены", "gjKYjVjXBz DCt"));
     assertTrue(searchStringMatcher.matches("wtf", "цеа"));
+  }
+
+  @Test
+  void testMatchesOnlyStartingWords() {
+    assertTrue(searchStringMatcher.matches("наши полномочия все окончены", "наШи"));
+    assertTrue(searchStringMatcher.matches("наши полномочия все окончены", "ПОлном"));
+    assertFalse(searchStringMatcher.matches("наши полномочия все окончены", "аши"));
+    assertFalse(searchStringMatcher.matches("наши полномочия все окончены", "мочия"));
   }
 }

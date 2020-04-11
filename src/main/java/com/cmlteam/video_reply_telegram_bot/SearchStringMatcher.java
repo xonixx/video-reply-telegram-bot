@@ -2,6 +2,8 @@ package com.cmlteam.video_reply_telegram_bot;
 
 import org.springframework.stereotype.Component;
 
+import java.util.regex.Pattern;
+
 import static org.apache.commons.lang3.StringUtils.replaceChars;
 
 @Component
@@ -23,7 +25,7 @@ public class SearchStringMatcher {
 
   private boolean matches0(String keywordNormalized, String queryNormalized) {
     return queryNormalized.contains(keywordNormalized)
-        || keywordNormalized.contains(queryNormalized);
+        || Pattern.compile("\\b" + queryNormalized).matcher(keywordNormalized).find();
   }
 
   private String normalize(String str) {
