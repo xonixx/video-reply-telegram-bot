@@ -1,5 +1,6 @@
 package com.cmlteam.video_reply_telegram_bot;
 
+import lombok.NonNull;
 import org.springframework.stereotype.Component;
 
 import java.util.regex.Pattern;
@@ -9,10 +10,10 @@ import static org.apache.commons.lang3.StringUtils.replaceChars;
 @Component
 public class SearchStringMatcher {
 
-  private final String RU_KEYBOARD = "йцукенгшщзхъфывапролджэячсмитьбюё";
-  private final String EN_KEYBOARD = "qwertyuiop[]asdfghjkl;'zxcvbnm,.`";
+  private static final String RU_KEYBOARD = "йцукенгшщзхъфывапролджэячсмитьбюё";
+  private static final String EN_KEYBOARD = "qwertyuiop[]asdfghjkl;'zxcvbnm,.`";
 
-  public boolean matches(String keyword, String query) {
+  public boolean matches(String keyword, @NonNull String query) {
     String keywordNormalized = normalize(keyword);
     String queryNormalized = normalize(query);
 
@@ -30,10 +31,7 @@ public class SearchStringMatcher {
             .find();
   }
 
-  private String normalize(String str) {
-    if (str == null) {
-      return null;
-    }
+  private String normalize(@NonNull String str) {
     return replaceChars(str.toLowerCase(), "ё", "е");
   }
 }

@@ -1,5 +1,6 @@
 package com.cmlteam.video_reply_telegram_bot;
 
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,7 @@ public class VideosListService {
    * @param query user query string
    * @return list of file_ids of videos stored in telegram
    */
-  List<Video> searchVideo(String query) {
+  List<Video> searchVideo(@NonNull String query) {
     List<Video> res =
         videosListProperties.getList().stream()
             .filter(v -> v.matches(searchStringMatcher, query))
@@ -32,11 +33,8 @@ public class VideosListService {
     return res;
   }
 
-  void init() {}
-
   @PostConstruct
   public void postConstruct() {
     log.info("Videos: " + videosListProperties.getList().size());
-    init();
   }
 }
