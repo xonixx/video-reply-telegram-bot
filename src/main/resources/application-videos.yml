@@ -60,11 +60,13 @@ videos:
       keywords:
         - "все ясно героин марихуана крэк"
         - "крек"
+        - "наркотики"
     - file-id: "BAACAgIAAxkBAAPMXokAAdpC63vk-rcQzrb-DUWGJ-SrAAI1BgACqoxJSAbU3RLRIHcnGAQ"
       file-unique-id: "AgADNQYAAqqMSUg"
       keywords:
         - "вы понимаете о чём говорят все эти люди я нет"
         - "яннп"
+        - "wtf"
     - file-id: "BAACAgIAAxkBAAPOXokCkE-KChRa1rwk8bwYqdiq5_IAAjoGAAKqjElIOA1-8DOp00EYBA"
       file-unique-id: "AgADOgYAAqqMSUg"
       keywords:
@@ -259,6 +261,7 @@ videos:
       keywords:
         - "what the fuck is this"
         - "wtf"
+        - "яннп"
         - "что происходит"
     - file-id: "BAACAgIAAxkBAANwXoYUkJrzLQXnhYGcIyIPAAGmti6KAAJ1BwACh9kxSDbyR9WwWCPxGAQ"
       file-unique-id: "AgADdQcAAofZMUg"
@@ -417,6 +420,7 @@ videos:
         - "смех"
         - "смешно"
         - "lol"
+        - "лол"
     - file-id: "BAACAgIAAxkBAAOuXoYbUB0JzMf1lqCQ3UGVzCSpe4cAAq4HAAKH2TFICvTRZjKlFycYBA"
       file-unique-id: "AgADrgcAAofZMUg"
       keywords:
@@ -454,6 +458,7 @@ videos:
         - "смех повара"
         - "смешно"
         - "lol"
+        - "лол"
     - file-id: "BAACAgIAAxkBAAO8XoYdEKPW46wQwsfth_avz4zwTsoAAroHAAKH2TFIwizkKWnQWlwYBA"
       file-unique-id: "AgADugcAAofZMUg"
       keywords:
@@ -554,3 +559,21 @@ videos:
       keywords:
         - "интересно"
         - "гамаз"
+    - file-id: "BAACAgIAAxkBAAIBOF6jXES9NMUj5T8xt4v-g1f5Qx1ZAAIWBwACUyoYSRS_XpCj91pgGQQ"
+      file-unique-id: "AgADFgcAAlMqGEk"
+      keywords:
+        - "я не потерплю"
+        - "понасенков"
+    - file-id: "BAACAgIAAxkBAAIBPl6jYEqASksIiRUuzRtpNU1LajaeAAKtBwACsdAgSUmXH2-XT37sGQQ"
+      file-unique-id: "AgADrQcAArHQIEk"
+      keywords:
+        - "так а как такое может быть"
+        - "wtf"
+        - "яннп"
+    - file-id: "BAACAgIAAxkBAAIBPF6jXJ7v7jdK2fT8h3OUSBfcTcFaAAIYBwACUyoYSeqGmobaDc2VGQQ"
+      file-unique-id: "AgADGAcAAlMqGEk"
+      keywords:
+        - "смех"
+        - "смешно"
+        - "lol"
+        - "лол"
