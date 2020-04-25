@@ -1,8 +1,6 @@
 package com.cmlteam.video_reply_telegram_bot;
 
-import com.pengrad.telegrambot.model.InlineQuery;
-import com.pengrad.telegrambot.model.Message;
-import com.pengrad.telegrambot.model.Update;
+import com.pengrad.telegrambot.model.*;
 import com.pengrad.telegrambot.model.Video;
 import com.pengrad.telegrambot.model.request.InlineQueryResult;
 import com.pengrad.telegrambot.model.request.InlineQueryResultCachedVideo;
@@ -15,7 +13,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.ListIterator;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -42,9 +42,8 @@ public class BotPollingJob {
 
       if (message != null) {
         Long chatId = message.chat().id();
-        Long fromId = message.from().id().longValue();
 
-        if (isAdminUser(fromId)) {
+        if (isAdminUser(message.from())) {
           String text = message.text();
           if ("/backup".equals(text)) {
             videosBackupper.startBackup(adminUser);
@@ -69,15 +68,23 @@ public class BotPollingJob {
 
         log.info("offset: {}, nextOffset: {}", offset, videosPage.getNextOffset());
 
+        List<InlineQueryResultCachedVideo> results = new ArrayList<>(videosPage.getVideos().size());
+        ListIterator<com.cmlteam.video_reply_telegram_bot.Video> it =
+            videosPage.getVideos().listIterator();
+        while (it.hasNext()) {
+          com.cmlteam.video_reply_telegram_bot.Video v = it.next();
+          results.add(
+              new InlineQueryResultCachedVideo(
+                  v.getFileUniqueId(),
+                  v.getFileId(),
+                  (isAdminUser(inlineQuery.from())
+                          ? (videosPage.getOffsetIdx() + it.nextIndex()) + ". "
+                          : "") // enumerate videos for admin
+                      + v.getKeywords().get(0)));
+        }
+
         telegramBot.execute(
-            new AnswerInlineQuery(
-                    inlineQuery.id(),
-                    videosPage.getVideos().stream()
-                        .map(
-                            v ->
-                                new InlineQueryResultCachedVideo(
-                                    v.getFileUniqueId(), v.getFileId(), v.getKeywords().get(0)))
-                        .toArray(InlineQueryResult[]::new))
+            new AnswerInlineQuery(inlineQuery.id(), results.toArray(new InlineQueryResult[0]))
                 .nextOffset(videosPage.getNextOffset()));
       }
 
@@ -91,6 +98,10 @@ public class BotPollingJob {
 
   private boolean isAdminUser(Long chatId) {
     return adminUser == chatId;
+  }
+
+  private boolean isAdminUser(User user) {
+    return isAdminUser(user.id().longValue());
   }
 
   private void displayVideoFileIds(Long chatId, Video video) {

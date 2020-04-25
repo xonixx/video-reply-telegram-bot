@@ -11,6 +11,7 @@ import java.util.Random;
 @RequiredArgsConstructor
 @Getter
 class VideosPage {
+  private final int offsetIdx;
   private final List<Video> videos;
   private final String nextOffset;
 
@@ -18,11 +19,12 @@ class VideosPage {
     Offset offset = Offset.of(offsetS);
     Collections.shuffle(allResults, new Random(offset.seed));
     int total = allResults.size();
-    int nextOffsetNum = offset.offset + pageSize;
+    int offsetIdx = offset.offset;
+    int nextOffsetNum = offsetIdx + pageSize;
     String nextOffsetS =
         nextOffsetNum < total ? new Offset(offset.seed, nextOffsetNum).toString() : "";
     return new VideosPage(
-        allResults.subList(offset.offset, Math.min(nextOffsetNum, total)), nextOffsetS);
+        offsetIdx, allResults.subList(offsetIdx, Math.min(nextOffsetNum, total)), nextOffsetS);
   }
 
   @RequiredArgsConstructor
