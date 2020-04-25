@@ -9,13 +9,13 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class Beans {
   @Bean
-  public TelegramBotWrapper telegramBotWrapper(BotProperties botProperties) {
+  TelegramBotWrapper telegramBotWrapper(BotProperties botProperties, JsonHelper jsonHelper) {
     TelegramBot telegramBot = new TelegramBot(botProperties.getToken());
     GetMeResponse response = telegramBot.execute(new GetMe());
     if (response.user() == null) {
       throw new IllegalArgumentException("bot token is incorrect");
     }
-    return new TelegramBotWrapper(telegramBot);
+    return new TelegramBotWrapper(telegramBot, jsonHelper);
   }
 
   @Bean
@@ -35,8 +35,13 @@ public class Beans {
       BotProperties botProperties,
       TelegramBotWrapper telegramBotWrapper,
       VideosListService videosListService,
-      VideosBackupper videosBackupper) {
+      VideosBackupper videosBackupper,
+      JsonHelper jsonHelper) {
     return new BotPollingJob(
-        telegramBotWrapper, videosListService, videosBackupper, botProperties.getAdminUser());
+        telegramBotWrapper,
+        videosListService,
+        videosBackupper,
+        jsonHelper,
+        botProperties.getAdminUser());
   }
 }

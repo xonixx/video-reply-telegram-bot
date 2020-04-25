@@ -1,7 +1,5 @@
 package com.cmlteam.video_reply_telegram_bot;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.pengrad.telegrambot.model.InlineQuery;
 import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.model.Update;
@@ -25,6 +23,7 @@ public class BotPollingJob {
   private final TelegramBotWrapper telegramBot;
   private final VideosListService videosListService;
   private final VideosBackupper videosBackupper;
+  private final JsonHelper jsonHelper;
   private final long adminUser;
 
   private final GetUpdates getUpdates = new GetUpdates();
@@ -36,7 +35,7 @@ public class BotPollingJob {
     List<Update> updates = updatesResponse.updates();
 
     for (Update update : updates) {
-      log.info("Received:\n" + toPrettyString(update));
+      log.info("Received:\n" + jsonHelper.toPrettyString(update));
 
       Message message = update.message();
       //      telegramBot.execute(new SendMessage(message.chat().id(), "" + update.updateId()));
@@ -64,19 +63,22 @@ public class BotPollingJob {
 
       if (inlineQuery != null) {
         String query = inlineQuery.query();
+        String offset = inlineQuery.offset();
 
-        List<com.cmlteam.video_reply_telegram_bot.Video> fileIds =
-            videosListService.searchVideo(query);
+        VideosPage videosPage = videosListService.searchVideo(query, offset);
+
+        log.info("offset: {}, nextOffset: {}", offset, videosPage.getNextOffset());
 
         telegramBot.execute(
             new AnswerInlineQuery(
-                inlineQuery.id(),
-                fileIds.stream()
-                    .map(
-                        v ->
-                            new InlineQueryResultCachedVideo(
-                                v.getFileUniqueId(), v.getFileId(), v.getKeywords().get(0)))
-                    .toArray(InlineQueryResult[]::new)));
+                    inlineQuery.id(),
+                    videosPage.getVideos().stream()
+                        .map(
+                            v ->
+                                new InlineQueryResultCachedVideo(
+                                    v.getFileUniqueId(), v.getFileId(), v.getKeywords().get(0)))
+                        .toArray(InlineQueryResult[]::new))
+                .nextOffset(videosPage.getNextOffset()));
       }
 
       getUpdates.offset(update.updateId() + 1);
@@ -98,11 +100,5 @@ public class BotPollingJob {
     telegramBot.execute(
         new SendMessage(
             chatId, "file-id: \"" + fileId + "\"\nfile-unique-id: \"" + fileUniqueId + "\""));
-  }
-
-  private final Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
-  private String toPrettyString(Object obj) {
-    return gson.toJson(obj);
   }
 }

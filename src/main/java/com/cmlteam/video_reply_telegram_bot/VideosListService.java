@@ -6,7 +6,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,16 +20,16 @@ public class VideosListService {
 
   /**
    * @param query user query string
+   * @param offset offset identifier for pagination
    * @return list of file_ids of videos stored in telegram
    */
-  List<Video> searchVideo(@NonNull String query) {
-    List<Video> res =
+  VideosPage searchVideo(@NonNull String query, @NonNull String offset) {
+    List<Video> matchedResults =
         videosListProperties.getList().stream()
             .filter(v -> v.matches(searchStringMatcher, query))
-            .limit(MAX_ALLOWED_INLINE_RESULTS)
             .collect(Collectors.toList());
-    Collections.shuffle(res);
-    return res;
+
+    return VideosPage.of(matchedResults, MAX_ALLOWED_INLINE_RESULTS, offset);
   }
 
   @PostConstruct
