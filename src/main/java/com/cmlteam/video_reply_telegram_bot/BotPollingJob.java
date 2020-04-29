@@ -1,7 +1,7 @@
 package com.cmlteam.video_reply_telegram_bot;
 
-import com.pengrad.telegrambot.model.*;
 import com.pengrad.telegrambot.model.Video;
+import com.pengrad.telegrambot.model.*;
 import com.pengrad.telegrambot.model.request.InlineQueryResult;
 import com.pengrad.telegrambot.model.request.InlineQueryResultCachedVideo;
 import com.pengrad.telegrambot.request.AnswerInlineQuery;
