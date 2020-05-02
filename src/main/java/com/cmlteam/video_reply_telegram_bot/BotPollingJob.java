@@ -77,10 +77,11 @@ public class BotPollingJob {
               new InlineQueryResultCachedVideo(
                   v.getFileUniqueId(),
                   v.getFileId(),
-                  (isAdminUser(inlineQuery.from())
-                          ? (videosPage.getOffsetIdx() + it.nextIndex()) + ". "
-                          : "") // enumerate videos for admin
-                      + v.getKeywords().get(0)));
+                  //                  (isAdminUser(inlineQuery.from())
+                  //                          ? (videosPage.getOffsetIdx() + it.nextIndex()) + ". "
+                  //                          : "") // enumerate videos for admin
+                  //                      +
+                  v.getKeywords().get(0)));
         }
 
         telegramBot.execute(
