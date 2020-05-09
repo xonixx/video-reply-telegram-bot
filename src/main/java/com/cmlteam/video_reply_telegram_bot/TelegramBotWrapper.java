@@ -1,6 +1,7 @@
 package com.cmlteam.video_reply_telegram_bot;
 
 import com.pengrad.telegrambot.TelegramBot;
+import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.BaseRequest;
 import com.pengrad.telegrambot.response.BaseResponse;
 import lombok.RequiredArgsConstructor;
@@ -14,11 +15,21 @@ public class TelegramBotWrapper {
   private final ErrorReporter errorReporter;
 
   public <T extends BaseRequest, R extends BaseResponse> R execute(BaseRequest<T, R> request) {
+    return execute(null, request);
+  }
+
+  public <T extends BaseRequest, R extends BaseResponse> R execute(
+      Update userRequest, BaseRequest<T, R> request) {
     R response = telegramBot.execute(request);
     if (!response.isOk()) {
       String requestStr = jsonHelper.toPrettyString(request.toWebhookResponse());
       errorReporter.reportError(
-          new ErrorData(response.errorCode(), response.description(), requestStr, new Exception()));
+          new ErrorData(
+              userRequest,
+              response.errorCode(),
+              response.description(),
+              requestStr,
+              new Exception()));
       log.error(
           "ERROR #{}: {} for request:\n{}",
           response.errorCode(),

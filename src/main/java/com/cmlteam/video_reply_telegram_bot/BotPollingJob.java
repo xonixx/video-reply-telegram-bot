@@ -32,6 +32,10 @@ public class BotPollingJob {
   public void processUpdates() {
     GetUpdatesResponse updatesResponse = telegramBot.execute(getUpdates);
 
+    if (!updatesResponse.isOk()) {
+      return;
+    }
+
     List<Update> updates = updatesResponse.updates();
 
     for (Update update : updates) {
@@ -85,6 +89,7 @@ public class BotPollingJob {
         }
 
         telegramBot.execute(
+            update,
             new AnswerInlineQuery(inlineQuery.id(), results.toArray(new InlineQueryResult[0]))
                 .nextOffset(videosPage.getNextOffset()));
       }

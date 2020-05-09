@@ -19,8 +19,9 @@ public class Beans {
   }
 
   @Bean
-  ErrorReporter errorReporter(TelegramBot telegramBot, BotProperties botProperties) {
-    return new ErrorReporter(telegramBot, botProperties.getAdminUser());
+  ErrorReporter errorReporter(
+      TelegramBot telegramBot, JsonHelper jsonHelper, BotProperties botProperties) {
+    return new ErrorReporter(telegramBot, jsonHelper, botProperties.getAdminUser());
   }
 
   @Bean

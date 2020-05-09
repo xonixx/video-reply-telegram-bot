@@ -2,6 +2,7 @@ package com.cmlteam.video_reply_telegram_bot;
 
 import com.cmlteam.util.Util;
 import com.pengrad.telegrambot.TelegramBot;
+import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.model.request.ParseMode;
 import com.pengrad.telegrambot.request.SendMessage;
 import com.pengrad.telegrambot.response.SendResponse;
@@ -19,6 +20,7 @@ import java.util.List;
 @RequiredArgsConstructor
 class ErrorReporter {
   private final TelegramBot telegramBot;
+  private final JsonHelper jsonHelper;
   private final long adminUser;
   private final List<ErrorData> errors = Collections.synchronizedList(new ArrayList<>());
 
@@ -78,15 +80,19 @@ class ErrorReporter {
 
     String description = error.getDescription();
     if (StringUtils.isNotBlank(description)) {
-      msg.append("<b>Description:</b> ").append(Util.trim(description, 200)).append("\n");
+      msg.append("<b>Descr:</b> ").append(Util.trim(description, 200)).append("\n");
+    }
+
+    Update userRequest = error.getUserRequest();
+    if (userRequest != null) {
+      msg.append("<b>Usr req:</b><pre>")
+          .append(Util.trim(jsonHelper.toPrettyString(userRequest), 400))
+          .append("</pre>\n");
     }
 
     String request = error.getRequest();
     if (request != null) {
-      msg.append("<b>Request:</b> \n")
-          .append("<pre>")
-          .append(Util.trim(request, 200))
-          .append("</pre>\n");
+      msg.append("<b>TG req:</b><pre>").append(Util.trim(request, 200)).append("</pre>\n");
     }
 
     Exception ex = error.getException();
