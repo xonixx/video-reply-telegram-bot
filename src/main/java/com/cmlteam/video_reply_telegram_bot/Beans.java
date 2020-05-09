@@ -9,13 +9,24 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class Beans {
   @Bean
-  TelegramBotWrapper telegramBotWrapper(BotProperties botProperties, JsonHelper jsonHelper) {
+  TelegramBot getTelegramBot(BotProperties botProperties) {
     TelegramBot telegramBot = new TelegramBot(botProperties.getToken());
     GetMeResponse response = telegramBot.execute(new GetMe());
     if (response.user() == null) {
       throw new IllegalArgumentException("bot token is incorrect");
     }
-    return new TelegramBotWrapper(telegramBot, jsonHelper);
+    return telegramBot;
+  }
+
+  @Bean
+  ErrorReporter errorReporter(TelegramBot telegramBot, BotProperties botProperties) {
+    return new ErrorReporter(telegramBot, botProperties.getAdminUser());
+  }
+
+  @Bean
+  TelegramBotWrapper telegramBotWrapper(
+      TelegramBot telegramBot, JsonHelper jsonHelper, ErrorReporter errorReporter) {
+    return new TelegramBotWrapper(telegramBot, jsonHelper, errorReporter);
   }
 
   @Bean

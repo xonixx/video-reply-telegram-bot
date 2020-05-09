@@ -11,15 +11,19 @@ import lombok.extern.slf4j.Slf4j;
 public class TelegramBotWrapper {
   private final TelegramBot telegramBot;
   private final JsonHelper jsonHelper;
+  private final ErrorReporter errorReporter;
 
   public <T extends BaseRequest, R extends BaseResponse> R execute(BaseRequest<T, R> request) {
     R response = telegramBot.execute(request);
     if (!response.isOk()) {
+      String requestStr = jsonHelper.toPrettyString(request.toWebhookResponse());
+      errorReporter.reportError(
+          new ErrorData(response.errorCode(), response.description(), requestStr, new Exception()));
       log.error(
           "ERROR #{}: {} for request:\n{}",
           response.errorCode(),
           response.description(),
-          jsonHelper.toPrettyString(request.toWebhookResponse()));
+          requestStr);
     }
     return response;
   }
