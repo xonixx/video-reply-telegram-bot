@@ -23,7 +23,7 @@ class ErrorReporter {
   private final List<ErrorData> errors = Collections.synchronizedList(new ArrayList<>());
 
   //  public static final int ERROR_REPORT_INTERVAL = 5 * 60 * 1000; // 5 min
-  public static final int ERROR_REPORT_INTERVAL = 200; // test
+  public static final int ERROR_REPORT_INTERVAL = 5000; // test
   private static final int MAX_MSG_LEN = 4096;
 
   void reportError(ErrorData error) {
@@ -44,17 +44,20 @@ class ErrorReporter {
 
         for (ErrorData error : errors) {
           msg.append("\n");
-          renderError(msg, error);
 
-          if (msg.length() > MAX_MSG_LEN) {
+          StringBuilder errSb = new StringBuilder();
+          renderError(errSb, error);
+
+          if (msg.length() + errSb.length() > MAX_MSG_LEN) {
             break;
+          } else {
+            msg.append(errSb);
           }
         }
 
         SendResponse response =
             telegramBot.execute(
-                new SendMessage(adminUser, Util.trim(msg.toString(), MAX_MSG_LEN - 3))
-                    .parseMode(ParseMode.MarkdownV2));
+                new SendMessage(adminUser, msg.toString()).parseMode(ParseMode.HTML));
 
         if (!response.isOk()) {
           log.error(
@@ -70,26 +73,29 @@ class ErrorReporter {
   private void renderError(StringBuilder msg, ErrorData error) {
     int errorCode = error.getErrorCode();
     if (errorCode != 0) {
-      msg.append("*Code:* ").append(errorCode).append("\n");
+      msg.append("<b>Code:</b> ").append(errorCode).append("\n");
     }
 
     String description = error.getDescription();
     if (StringUtils.isNotBlank(description)) {
-      msg.append("*Description:* ").append(description).append("\n");
+      msg.append("<b>Description:</b> ").append(Util.trim(description, 200)).append("\n");
     }
 
     String request = error.getRequest();
     if (request != null) {
-      msg.append("*Request:* \n").append("```\n").append(request).append("\n```\n");
+      msg.append("<b>Request:</b> \n")
+          .append("<pre>")
+          .append(Util.trim(request, 200))
+          .append("</pre>\n");
     }
 
     Exception ex = error.getException();
     if (ex != null) {
-      msg.append("*Exc:* ")
+      msg.append("<b>Exc:</b> ")
           .append(ex.toString())
-          .append("\n```\n")
-          .append(ExceptionUtils.getStackTrace(ex))
-          .append("\n```");
+          .append("\n<pre>")
+          .append(Util.trim(ExceptionUtils.getStackTrace(ex), 200))
+          .append("</pre>");
     }
   }
 }
