@@ -45,11 +45,12 @@ class ErrorReporter {
             .append(Util.renderDuration(ERROR_REPORT_INTERVAL))
             .append(":");
 
+        int i = 0;
         for (ErrorData error : errors) {
           msg.append("\n");
 
           StringBuilder errSb = new StringBuilder();
-          renderError(errSb, error);
+          renderError(++i, errSb, error);
 
           if (msg.length() + errSb.length() > MAX_MSG_LEN) {
             break;
@@ -73,10 +74,10 @@ class ErrorReporter {
     }
   }
 
-  private void renderError(StringBuilder msg, ErrorData error) {
+  private void renderError(int errIdx, StringBuilder msg, ErrorData error) {
     String description = error.getDescription();
     if (StringUtils.isNotBlank(description)) {
-      msg.append("<b>Descr:</b> ");
+      msg.append("<b>Err #").append(errIdx).append("</b> ");
 
       int errorCode = error.getErrorCode();
       if (errorCode != 0) {
@@ -88,19 +89,19 @@ class ErrorReporter {
 
     Update userRequest = error.getUserRequest();
     if (userRequest != null) {
-      msg.append("<b>Usr req:</b><pre>")
+      msg.append("<b>Usr req</b><pre>")
           .append(Util.trim(jsonHelper.toPrettyString(userRequest), 400))
           .append("</pre>\n");
     }
 
     String request = error.getRequest();
     if (request != null) {
-      msg.append("<b>TG req:</b><pre>").append(Util.trim(request, 300)).append("</pre>\n");
+      msg.append("<b>TG req</b><pre>").append(Util.trim(request, 300)).append("</pre>\n");
     }
 
     Exception ex = error.getException();
     if (ex != null) {
-      msg.append("<b>Exc:</b> ")
+      msg.append("<b>Exc</b> ")
           .append(ex.toString())
           .append("\n<pre>")
           .append(Util.trim(ExceptionUtils.getStackTrace(ex), 300))
