@@ -24,8 +24,9 @@ class ErrorReporter {
   private final long adminUser;
   private final List<ErrorData> errors = Collections.synchronizedList(new ArrayList<>());
 
-  //  public static final int ERROR_REPORT_INTERVAL = 5 * 60 * 1000; // 5 min
-  public static final int ERROR_REPORT_INTERVAL = 5000; // test
+  public static final int ERROR_REPORT_INTERVAL = 5 * 60 * 1000; // 5 min
+  //  public static final int ERROR_REPORT_INTERVAL = 5000; // test
+
   private static final int MAX_MSG_LEN = 4096;
 
   void reportError(ErrorData error) {
@@ -73,14 +74,16 @@ class ErrorReporter {
   }
 
   private void renderError(StringBuilder msg, ErrorData error) {
-    int errorCode = error.getErrorCode();
-    if (errorCode != 0) {
-      msg.append("<b>Code:</b> ").append(errorCode).append("\n");
-    }
-
     String description = error.getDescription();
     if (StringUtils.isNotBlank(description)) {
-      msg.append("<b>Descr:</b> ").append(Util.trim(description, 200)).append("\n");
+      msg.append("<b>Descr:</b> ");
+
+      int errorCode = error.getErrorCode();
+      if (errorCode != 0) {
+        msg.append(errorCode).append(" ");
+      }
+
+      msg.append(Util.trim(description, 200)).append("\n");
     }
 
     Update userRequest = error.getUserRequest();
@@ -92,7 +95,7 @@ class ErrorReporter {
 
     String request = error.getRequest();
     if (request != null) {
-      msg.append("<b>TG req:</b><pre>").append(Util.trim(request, 200)).append("</pre>\n");
+      msg.append("<b>TG req:</b><pre>").append(Util.trim(request, 300)).append("</pre>\n");
     }
 
     Exception ex = error.getException();
@@ -100,7 +103,7 @@ class ErrorReporter {
       msg.append("<b>Exc:</b> ")
           .append(ex.toString())
           .append("\n<pre>")
-          .append(Util.trim(ExceptionUtils.getStackTrace(ex), 200))
+          .append(Util.trim(ExceptionUtils.getStackTrace(ex), 300))
           .append("</pre>");
     }
   }
