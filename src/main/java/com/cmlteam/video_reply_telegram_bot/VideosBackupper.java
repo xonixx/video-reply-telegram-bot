@@ -71,6 +71,10 @@ public class VideosBackupper {
   private boolean backupVideo(Video video) {
     GetFileResponse fileResponse = telegramBot.execute(new GetFile(video.getFileId()));
 
+    if (!fileResponse.isOk()) {
+      throw new RuntimeException(fileResponse.errorCode() + " " + fileResponse.description());
+    }
+
     File file = fileResponse.file();
 
     String filePath = file.filePath();
