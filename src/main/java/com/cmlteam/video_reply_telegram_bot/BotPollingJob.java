@@ -70,7 +70,7 @@ public class BotPollingJob {
 
         VideosPage videosPage = videosListService.searchVideo(query, offset);
 
-        log.info("offset: {}, nextOffset: {}", offset, videosPage.getNextOffset());
+//        log.info("offset: {}, nextOffset: {}", offset, videosPage.getNextOffset());
 
         List<InlineQueryResultCachedVideo> results = new ArrayList<>(videosPage.getVideos().size());
         ListIterator<com.cmlteam.video_reply_telegram_bot.Video> it =
