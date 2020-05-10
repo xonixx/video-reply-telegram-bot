@@ -42,13 +42,13 @@ public class VideosBackupper {
 
     long t0 = System.currentTimeMillis();
 
-    int new_ = 0;
+    int newVideosCnt = 0;
 
     try {
       for (Video video : videos) {
         boolean isNew = backupVideo(video);
         if (isNew) {
-          new_++;
+          newVideosCnt++;
         }
       }
     } catch (Exception ex) {
@@ -60,7 +60,7 @@ public class VideosBackupper {
         new SendMessage(
             userToInform,
             "Downloaded "
-                + new_
+                + newVideosCnt
                 + " new out of total "
                 + total
                 + " videos in "
@@ -69,11 +69,7 @@ public class VideosBackupper {
 
   @SneakyThrows
   private boolean backupVideo(Video video) {
-    GetFileResponse fileResponse = telegramBot.execute(new GetFile(video.getFileId()));
-
-    if (!fileResponse.isOk()) {
-      throw new RuntimeException(fileResponse.errorCode() + " " + fileResponse.description());
-    }
+    GetFileResponse fileResponse = telegramBot.executeEx(new GetFile(video.getFileId()));
 
     File file = fileResponse.file();
 
