@@ -704,3 +704,21 @@ videos:
         - "это омерзительно"
         - "ненависть"
         - "понасенков"
+    - file-id: "BAACAgIAAxkBAAIBkF7NjYSL3FdCVH7WKBzyQyWNDpk1AAJsCAACwzVpSqsdxC07cfGmGQQ"
+      file-unique-id: "AgADbAgAAsM1aUo"
+      message-id: "400"
+      keywords:
+        - "через две минуты турецкий"
+        - "2 минуты"
+    - file-id: "BAACAgIAAxkBAAIBkl7NjY3uaixXacCX605lCXu8R66sAAJtCAACwzVpSmhBwbaw2nhtGQQ"
+      file-unique-id: "AgADbQgAAsM1aUo"
+      message-id: "402"
+      keywords:
+        - "пять минут турецкий"
+        - "5 минут"
+    - file-id: "BAACAgIAAxkBAAIBlF7NjZVaCGI6-YF5qQEHXRspUAvfAAJuCAACwzVpSoaop7njDd-4GQQ"
+      file-unique-id: "AgADbggAAsM1aUo"
+      message-id: "404"
+      keywords:
+        - "пять минут назад было две минуты"
+        - "5 минут назад было 2 минуты"
