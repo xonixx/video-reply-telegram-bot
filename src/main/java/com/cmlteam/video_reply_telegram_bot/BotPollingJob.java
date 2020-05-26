@@ -46,6 +46,7 @@ public class BotPollingJob {
 
       if (message != null) {
         Long chatId = message.chat().id();
+        Integer messageId = message.messageId();
 
         if (isAdminUser(message.from())) {
           String text = message.text();
@@ -54,11 +55,11 @@ public class BotPollingJob {
           } else {
             Video video = message.video();
             if (video != null) {
-              displayVideoFileIds(chatId, video);
+              displayVideoFileIds(chatId, video, messageId);
             }
           }
         } else {
-          forwardMessageToAdmin(message.messageId(), chatId);
+          forwardMessageToAdmin(messageId, chatId);
         }
       }
 
@@ -70,7 +71,7 @@ public class BotPollingJob {
 
         VideosPage videosPage = videosListService.searchVideo(query, offset);
 
-//        log.info("offset: {}, nextOffset: {}", offset, videosPage.getNextOffset());
+        //        log.info("offset: {}, nextOffset: {}", offset, videosPage.getNextOffset());
 
         List<InlineQueryResultCachedVideo> results = new ArrayList<>(videosPage.getVideos().size());
         ListIterator<com.cmlteam.video_reply_telegram_bot.Video> it =
@@ -110,12 +111,19 @@ public class BotPollingJob {
     return isAdminUser(user.id().longValue());
   }
 
-  private void displayVideoFileIds(Long chatId, Video video) {
+  private void displayVideoFileIds(Long chatId, Video video, Integer messageId) {
     String fileId = video.fileId();
     String fileUniqueId = video.fileUniqueId();
     //        telegramBot.execute(new SendVideo(message.chat().id(), fileId).caption(fileId));
     telegramBot.execute(
         new SendMessage(
-            chatId, "file-id: \"" + fileId + "\"\nfile-unique-id: \"" + fileUniqueId + "\""));
+            chatId,
+            "file-id: \""
+                + fileId
+                + "\"\nfile-unique-id: \""
+                + fileUniqueId
+                + "\"\nmessage-id: \""
+                + messageId
+                + "\""));
   }
 }

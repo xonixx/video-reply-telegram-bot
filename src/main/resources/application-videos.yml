@@ -528,7 +528,7 @@ videos:
       keywords:
         - "вы кто такие я вас не звал идите на хуй"
         - "вы кто такие я вас не звал идите нахуй"
-    - file-id: "BAACAgIAAxkBAAIBSl6SJMI98VxltYaThsRBHEI-EQSpAAJBBwACU1WRSGK1ejh5PvfTGAQ"
+    - file-id: "BAACAgIAAxkBAAIBfl7JJazspSO17Eattd1GYqm-M0gJAAJBBwACU1WRSNFUs2DD-G6BGQQ"
       file-unique-id: "AgADQQcAAlNVkUg"
       keywords:
         - "говно"
@@ -671,3 +671,34 @@ videos:
       keywords:
         - "у тебя яйца упадут"
         - "тебе слабо"
+    - file-id: "BAACAgIAAxkBAAIBg17NY0jpWXjbW_c7pvL3YBeBlU3XAAJ2BwAChnpoSke42NOOqSbBGQQ"
+      file-unique-id: "AgADdgcAAoZ6aEo"
+      message-id: "387"
+      keywords:
+        - "представляете кошмар"
+        - "путин"
+    - file-id: "BAACAgIAAxkBAAIBhV7NY2eUIE0F53QCiaXeB6rTeVVqAAJDCAACwzVpSiqiKQ9-2IzTGQQ"
+      file-unique-id: "AgADQwgAAsM1aUo"
+      message-id: "389"
+      keywords:
+        - "что это такое совсем с ума сошли что-ли"
+        - "путин"
+    - file-id: "BAACAgIAAxkBAAIBh17NY8Rw-9vqPGgR-AABecM9tyDUUwACRAgAAsM1aUqYeLYDaiG4pRkE"
+      file-unique-id: "AgADRAgAAsM1aUo"
+      message-id: "391"
+      keywords:
+        - "вышел в окно"
+    - file-id: "BAACAgIAAxkBAAIBiV7NY-zc8KGuM4HRDfYDoUvceMFeAAJFCAACwzVpSondLk16vkDtGQQ"
+      file-unique-id: "AgADRQgAAsM1aUo"
+      message-id: "393"
+      keywords:
+        - "взрыв головы"
+        - "взорвалась"
+        - "explode"
+    - file-id: "BAACAgIAAxkBAAIBi17NZDUD0w9WPsA-kAS2slB07MrjAAJGCAACwzVpSgHX43eFzK_VGQQ"
+      file-unique-id: "AgADRggAAsM1aUo"
+      message-id: "395"
+      keywords:
+        - "это омерзительно"
+        - "ненависть"
+        - "понасенков"
