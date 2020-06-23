@@ -11,11 +11,11 @@ import com.pengrad.telegrambot.request.SendMessage;
 import com.pengrad.telegrambot.response.GetUpdatesResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.MDC;
 import org.springframework.scheduling.annotation.Scheduled;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ListIterator;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -39,6 +39,8 @@ public class BotPollingJob {
     List<Update> updates = updatesResponse.updates();
 
     for (Update update : updates) {
+      captureLogParams(update);
+
       log.info("Received:\n" + jsonHelper.toPrettyString(update));
 
       Message message = update.message();
@@ -74,19 +76,10 @@ public class BotPollingJob {
         //        log.info("offset: {}, nextOffset: {}", offset, videosPage.getNextOffset());
 
         List<InlineQueryResultCachedVideo> results = new ArrayList<>(videosPage.getVideos().size());
-        ListIterator<com.cmlteam.video_reply_telegram_bot.Video> it =
-            videosPage.getVideos().listIterator();
-        while (it.hasNext()) {
-          com.cmlteam.video_reply_telegram_bot.Video v = it.next();
+        for (com.cmlteam.video_reply_telegram_bot.Video v : videosPage.getVideos()) {
           results.add(
               new InlineQueryResultCachedVideo(
-                  v.getFileUniqueId(),
-                  v.getFileId(),
-                  //                  (isAdminUser(inlineQuery.from())
-                  //                          ? (videosPage.getOffsetIdx() + it.nextIndex()) + ". "
-                  //                          : "") // enumerate videos for admin
-                  //                      +
-                  v.getKeywords().get(0)));
+                  v.getFileUniqueId(), v.getFileId(), v.getKeywords().get(0)));
         }
 
         telegramBot.execute(
@@ -103,12 +96,28 @@ public class BotPollingJob {
     telegramBot.execute(new ForwardMessage(adminUser, chatId, messageId));
   }
 
-  private boolean isAdminUser(Long chatId) {
-    return adminUser == chatId;
+  private boolean isAdminUser(User user) {
+    return adminUser == user.id().longValue();
   }
 
-  private boolean isAdminUser(User user) {
-    return isAdminUser(user.id().longValue());
+  private void captureLogParams(Update update) {
+    MDC.clear();
+
+    if (update == null) {
+      return;
+    }
+    Message message = update.message();
+    InlineQuery inlineQuery;
+    User user = null;
+    if (message != null) {
+      user = message.from();
+    } else if ((inlineQuery = update.inlineQuery()) != null) {
+      user = inlineQuery.from();
+    }
+
+    if (user != null) {
+      MDC.put("username", user.username());
+    }
   }
 
   private void displayVideoFileIds(Long chatId, Video video, Integer messageId) {
