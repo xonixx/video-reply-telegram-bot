@@ -316,6 +316,8 @@ videos:
       file-unique-id: "AgADiAcAAofZMUg"
       keywords:
         - "ты втираешь мне какую-то дичь"
+        - "давидович"
+        - "ступин"
     - file-id: "BAACAgIAAxkBAAOEXoYXkVyO314Uwzw2FN_JlfCpunoAAokHAAKH2TFIX5_W4VeWQxIYBA"
       file-unique-id: "AgADiQcAAofZMUg"
       keywords:
@@ -650,6 +652,7 @@ videos:
       file-unique-id: "AgAD_QYAAgXY2Uk"
       keywords:
         - "да... да-да"
+        - "дада"
         - "yes"
         - "согласен"
         - "геннадий горин"
@@ -903,3 +906,30 @@ videos:
       message-id: "499"
       keywords:
         - "я не могу бля, нормальный хуй"
+    - file-id: "BAACAgIAAxkBAAIB9l8Tm4YEPWKJfmgJHvGopecYPqHCAAJJBgACpmCgSOb41YZZvJtCGgQ"
+      file-unique-id: "AgADSQYAAqZgoEg"
+      message-id: "502"
+      keywords:
+        - "всё, лавочка закрыта"
+    - file-id: "BAACAgIAAxkBAAIB-F8Tm44cXdcMw2QJuibH_Ic0ClDlAAJKBgACpmCgSJW1bZR9pxmeGgQ"
+      file-unique-id: "AgADSgYAAqZgoEg"
+      message-id: "504"
+      keywords:
+        - "о курва"
+    - file-id: "BAACAgIAAxkBAAIB-l8Tm5eSNOyWytzQAAHqnUAppjFk9AACTQYAAqZgoEgkCqvAbgjWqxoE"
+      file-unique-id: "AgADTQYAAqZgoEg"
+      message-id: "506"
+      keywords:
+        - "вот с этого момента поподробнее"
+        - "давидович"
+        - "ступин"
+    - file-id: "BAACAgIAAxkBAAIB_F8Tm5_KDMubmPefx-KVpQm_g1LvAAJOBgACpmCgSC_4oj3RiiyoGgQ"
+      file-unique-id: "AgADTgYAAqZgoEg"
+      message-id: "508"
+      keywords:
+        - "довольно-таки неплохо"
+        - "очень приятно"
+        - "мне очень нравится"
+        - "хорошо"
+        - "отлично"
+
