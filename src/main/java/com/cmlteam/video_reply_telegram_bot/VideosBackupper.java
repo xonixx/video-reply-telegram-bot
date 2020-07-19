@@ -69,23 +69,22 @@ public class VideosBackupper {
 
   @SneakyThrows
   private boolean backupVideo(Video video) {
-    GetFileResponse fileResponse = telegramBot.executeEx(new GetFile(video.getFileId()));
-
-    File file = fileResponse.file();
-
-    String filePath = file.filePath();
-
-    String videoUrl = formFileDlUrl(filePath);
-
-    log.info("Downloading {} : {}... ", video.getFileId(), videoUrl);
-
     java.io.File fileDestination = new java.io.File(backupFolder, video.getFileUniqueId() + ".mp4");
 
     if (fileDestination.exists()) {
-      log.info("EXISTING");
+      log.info("EXISTING: {}", video.getFileId());
       return false;
     } else {
-      log.info("NEW");
+      log.info("NEW: {}", video.getFileId());
+      GetFileResponse fileResponse = telegramBot.executeEx(new GetFile(video.getFileId()));
+
+      File file = fileResponse.file();
+
+      String filePath = file.filePath();
+
+      String videoUrl = formFileDlUrl(filePath);
+
+      log.info("Downloading {} : {}... ", video.getFileId(), videoUrl);
       FileUtils.copyURLToFile(new URL(videoUrl), fileDestination, TIMEOUT, TIMEOUT);
       return true;
     }
