@@ -11,6 +11,7 @@ import com.pengrad.telegrambot.request.SendMessage;
 import com.pengrad.telegrambot.response.GetUpdatesResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.MDC;
 import org.springframework.scheduling.annotation.Scheduled;
 
@@ -50,8 +51,17 @@ public class BotPollingJob {
         Long chatId = message.chat().id();
         Integer messageId = message.messageId();
 
+        String text = message.text();
+
+        if (StringUtils.isNoneEmpty(text)) {
+          telegramBot.execute(
+              new SendMessage(
+                  chatId,
+                  "This is inline bot to allow reply with video-meme!\n"
+                      + "More instructions: https://github.com/xonixx/video-reply-telegram-bot/blob/master/README.md"));
+        }
+
         if (isAdminUser(message.from())) {
-          String text = message.text();
           if ("/backup".equals(text)) {
             videosBackupper.startBackup(adminUser);
           } else {
