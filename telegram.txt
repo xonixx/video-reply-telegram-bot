@@ -1,0 +1,17 @@
+
+/setname
+
+VideoReplyBot
+
+/setuserpic
+
+<Upload userpic.png>
+
+/setdescription
+
+This is inline bot to allow reply with video-meme!
+More instructions: https://github.com/xonixx/video-reply-telegram-bot/blob/master/README.md
+
+/setabouttext
+
+This is inline bot to allow reply with video-meme! More instructions: https://bit.ly/3gQo9VR
