@@ -38,8 +38,7 @@ public class VideosBackupper {
 
     int total = videos.size();
 
-    telegramBot.execute(
-        new SendMessage(userToInform, "Starting backup for " + total + " videos..."));
+    telegramBot.sendText(userToInform, "Starting backup for " + total + " videos...");
 
     long t0 = System.currentTimeMillis();
 
@@ -54,18 +53,17 @@ public class VideosBackupper {
       }
     } catch (Exception ex) {
       log.error("", ex);
-      telegramBot.execute(new SendMessage(userToInform, "Exception: " + ex.toString()));
+      telegramBot.sendText(userToInform, "Exception: " + ex.toString());
     }
 
-    telegramBot.execute(
-        new SendMessage(
-            userToInform,
-            "Downloaded "
-                + newVideosCnt
-                + " new out of total "
-                + total
-                + " videos in "
-                + Util.renderDurationFromStart(t0)));
+    telegramBot.sendText(
+        userToInform,
+        "Downloaded "
+            + newVideosCnt
+            + " new out of total "
+            + total
+            + " videos in "
+            + Util.renderDurationFromStart(t0));
   }
 
   @SneakyThrows

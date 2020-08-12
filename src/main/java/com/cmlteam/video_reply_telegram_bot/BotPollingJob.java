@@ -56,11 +56,10 @@ public class BotPollingJob {
         String text = message.text();
 
         if (StringUtils.isNoneEmpty(text)) {
-          telegramBot.execute(
-              new SendMessage(
-                  chatId,
-                  "This is inline bot to allow reply with video-meme!\n"
-                      + "More instructions: https://github.com/xonixx/video-reply-telegram-bot/blob/master/README.md"));
+          telegramBot.sendText(
+              chatId,
+              "This is inline bot to allow reply with video-meme!\n"
+                  + "More instructions: https://github.com/xonixx/video-reply-telegram-bot/blob/master/README.md");
         }
 
         if (isAdminUser(message.from())) {
@@ -136,15 +135,14 @@ public class BotPollingJob {
     String fileId = video.fileId();
     String fileUniqueId = video.fileUniqueId();
     //        telegramBot.execute(new SendVideo(message.chat().id(), fileId).caption(fileId));
-    telegramBot.execute(
-        new SendMessage(
-            chatId,
-            "file-id: \""
-                + fileId
-                + "\"\nfile-unique-id: \""
-                + fileUniqueId
-                + "\"\nmessage-id: \""
-                + messageId
-                + "\""));
+    telegramBot.sendText(
+        chatId,
+        "file-id: \""
+            + fileId
+            + "\"\nfile-unique-id: \""
+            + fileUniqueId
+            + "\"\nmessage-id: \""
+            + messageId
+            + "\"");
   }
 }
