@@ -1,5 +1,6 @@
 package com.cmlteam.video_reply_telegram_bot;
 
+import com.cmlteam.telegram_bot_common.TelegramBotWrapper;
 import com.cmlteam.util.Util;
 import com.pengrad.telegrambot.model.File;
 import com.pengrad.telegrambot.request.GetFile;

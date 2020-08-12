@@ -1,5 +1,8 @@
 package com.cmlteam.video_reply_telegram_bot;
 
+import com.cmlteam.telegram_bot_common.ErrorReporter;
+import com.cmlteam.telegram_bot_common.JsonHelper;
+import com.cmlteam.telegram_bot_common.TelegramBotWrapper;
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.request.GetMe;
 import com.pengrad.telegrambot.response.GetMeResponse;
