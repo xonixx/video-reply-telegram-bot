@@ -31,11 +31,6 @@ public class Beans {
   }
 
   @Bean
-  LogHelper logHelper() {
-    return new LogHelper();
-  }
-
-  @Bean
   TelegramBotWrapper telegramBotWrapper(
       TelegramBot telegramBot, JsonHelper jsonHelper, ErrorReporter errorReporter) {
     return new TelegramBotWrapper(telegramBot, jsonHelper, errorReporter);
