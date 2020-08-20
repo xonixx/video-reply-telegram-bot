@@ -1,6 +1,7 @@
 package com.cmlteam.video_reply_telegram_bot;
 
 import com.cmlteam.telegram_bot_common.JsonHelper;
+import com.cmlteam.telegram_bot_common.LogHelper;
 import com.cmlteam.telegram_bot_common.TelegramBotWrapper;
 import com.pengrad.telegrambot.model.Video;
 import com.pengrad.telegrambot.model.*;
@@ -9,12 +10,10 @@ import com.pengrad.telegrambot.model.request.InlineQueryResultCachedVideo;
 import com.pengrad.telegrambot.request.AnswerInlineQuery;
 import com.pengrad.telegrambot.request.ForwardMessage;
 import com.pengrad.telegrambot.request.GetUpdates;
-import com.pengrad.telegrambot.request.SendMessage;
 import com.pengrad.telegrambot.response.GetUpdatesResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.MDC;
 import org.springframework.scheduling.annotation.Scheduled;
 
 import java.util.ArrayList;
@@ -27,6 +26,7 @@ public class BotPollingJob {
   private final VideosListService videosListService;
   private final VideosBackupper videosBackupper;
   private final JsonHelper jsonHelper;
+  private final LogHelper logHelper;
   private final long adminUser;
 
   private final GetUpdates getUpdates = new GetUpdates();
@@ -42,7 +42,7 @@ public class BotPollingJob {
     List<Update> updates = updatesResponse.updates();
 
     for (Update update : updates) {
-      captureLogParams(update);
+      logHelper.captureLogParams(update);
 
       log.info("Received:\n" + jsonHelper.toPrettyString(update));
 
@@ -109,26 +109,6 @@ public class BotPollingJob {
 
   private boolean isAdminUser(User user) {
     return adminUser == user.id().longValue();
-  }
-
-  private void captureLogParams(Update update) {
-    MDC.clear();
-
-    if (update == null) {
-      return;
-    }
-    Message message = update.message();
-    InlineQuery inlineQuery;
-    User user = null;
-    if (message != null) {
-      user = message.from();
-    } else if ((inlineQuery = update.inlineQuery()) != null) {
-      user = inlineQuery.from();
-    }
-
-    if (user != null) {
-      MDC.put("username", user.username());
-    }
   }
 
   private void displayVideoFileIds(Long chatId, Video video, Integer messageId) {

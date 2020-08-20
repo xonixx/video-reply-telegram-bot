@@ -2,12 +2,15 @@ package com.cmlteam.video_reply_telegram_bot;
 
 import com.cmlteam.telegram_bot_common.ErrorReporter;
 import com.cmlteam.telegram_bot_common.JsonHelper;
+import com.cmlteam.telegram_bot_common.LogHelper;
 import com.cmlteam.telegram_bot_common.TelegramBotWrapper;
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.request.GetMe;
 import com.pengrad.telegrambot.response.GetMeResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.List;
 
 @Configuration
 public class Beans {
@@ -24,7 +27,12 @@ public class Beans {
   @Bean
   ErrorReporter errorReporter(
       TelegramBot telegramBot, JsonHelper jsonHelper, BotProperties botProperties) {
-    return new ErrorReporter(telegramBot, jsonHelper, botProperties.getAdminUser());
+    return new ErrorReporter(telegramBot, jsonHelper, List.of(botProperties.getAdminUser()));
+  }
+
+  @Bean
+  LogHelper logHelper() {
+    return new LogHelper();
   }
 
   @Bean
@@ -51,12 +59,14 @@ public class Beans {
       TelegramBotWrapper telegramBotWrapper,
       VideosListService videosListService,
       VideosBackupper videosBackupper,
-      JsonHelper jsonHelper) {
+      JsonHelper jsonHelper,
+      LogHelper logHelper) {
     return new BotPollingJob(
         telegramBotWrapper,
         videosListService,
         videosBackupper,
         jsonHelper,
+        logHelper,
         botProperties.getAdminUser());
   }
 }

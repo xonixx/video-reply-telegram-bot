@@ -4,7 +4,6 @@ import com.cmlteam.telegram_bot_common.TelegramBotWrapper;
 import com.cmlteam.util.Util;
 import com.pengrad.telegrambot.model.File;
 import com.pengrad.telegrambot.request.GetFile;
-import com.pengrad.telegrambot.request.SendMessage;
 import com.pengrad.telegrambot.response.GetFileResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
