@@ -55,15 +55,11 @@ public class BotPollingJob {
 
         String text = message.text();
 
-        if (StringUtils.isNoneEmpty(text)) {
-          telegramBot.sendText(
-              chatId,
-              "This is inline bot to allow reply with video-meme!\n"
-                  + "More instructions: https://github.com/xonixx/video-reply-telegram-bot/blob/master/README.md");
-        }
+        boolean handled = false;
 
         if (isAdminUser(message.from())) {
           if ("/backup".equals(text)) {
+            handled = true;
             videosBackupper.startBackup(adminUser);
           } else {
             Video video = message.video();
@@ -73,6 +69,13 @@ public class BotPollingJob {
           }
         } else {
           forwardMessageToAdmin(messageId, chatId);
+        }
+
+        if (!handled && StringUtils.isNoneEmpty(text)) {
+          telegramBot.sendText(
+              chatId,
+              "This is inline bot to allow reply with video-meme!\n"
+                  + "More instructions: https://github.com/xonixx/video-reply-telegram-bot/blob/master/README.md");
         }
       }
 
