@@ -12,6 +12,7 @@ import com.pengrad.telegrambot.request.ForwardMessage;
 import com.pengrad.telegrambot.request.GetUpdates;
 import com.pengrad.telegrambot.request.SendVideo;
 import com.pengrad.telegrambot.response.GetUpdatesResponse;
+import com.pengrad.telegrambot.response.SendResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -60,8 +61,19 @@ public class BotPollingJob {
 
         if (isAdminUser(message.from())) {
           if ("/sendall".equals(text)) {
+            int i = 0;
             for (com.cmlteam.video_reply_telegram_bot.Video video : videosListService.getAll()) {
-              telegramBot.execute(new SendVideo(chatId, video.getFileId()));
+              SendResponse response =
+                  telegramBot.execute(
+                      new SendVideo(chatId, video.getFileId()).caption("Vid #" + (++i)));
+              if (!response.isOk()) {
+                log.error(":-(");
+              }
+              try {
+                Thread.sleep(1000);
+              } catch (InterruptedException e) {
+                e.printStackTrace();
+              }
             }
           } else if ("/backup".equals(text)) {
             handled = true;
