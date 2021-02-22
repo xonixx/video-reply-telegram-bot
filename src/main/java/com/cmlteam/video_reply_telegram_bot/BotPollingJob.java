@@ -1,16 +1,20 @@
 package com.cmlteam.video_reply_telegram_bot;
 
+import com.cmlteam.telegram_bot_common.Emoji;
 import com.cmlteam.telegram_bot_common.JsonHelper;
 import com.cmlteam.telegram_bot_common.LogHelper;
 import com.cmlteam.telegram_bot_common.TelegramBotWrapper;
 import com.pengrad.telegrambot.model.Video;
 import com.pengrad.telegrambot.model.*;
 import com.pengrad.telegrambot.model.request.InlineQueryResult;
+import com.pengrad.telegrambot.model.request.InlineQueryResultArticle;
 import com.pengrad.telegrambot.model.request.InlineQueryResultCachedVideo;
 import com.pengrad.telegrambot.request.AnswerInlineQuery;
 import com.pengrad.telegrambot.request.ForwardMessage;
 import com.pengrad.telegrambot.request.GetUpdates;
+import com.pengrad.telegrambot.request.SendVideo;
 import com.pengrad.telegrambot.response.GetUpdatesResponse;
+import com.pengrad.telegrambot.response.SendResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -58,7 +62,22 @@ public class BotPollingJob {
         boolean handled = false;
 
         if (isAdminUser(message.from())) {
-          if ("/backup".equals(text)) {
+          if ("/sendall".equals(text)) {
+            int i = 0;
+            for (com.cmlteam.video_reply_telegram_bot.Video video : videosListService.getAll()) {
+              SendResponse response =
+                  telegramBot.execute(
+                      new SendVideo(chatId, video.getFileId()).caption("Vid #" + (++i)));
+              if (!response.isOk()) {
+                log.error(":-(");
+              }
+              try {
+                Thread.sleep(1000);
+              } catch (InterruptedException e) {
+                e.printStackTrace();
+              }
+            }
+          } else if ("/backup".equals(text)) {
             handled = true;
             videosBackupper.startBackup(adminUser);
           } else {
@@ -82,7 +101,7 @@ public class BotPollingJob {
       InlineQuery inlineQuery = update.inlineQuery();
 
       if (inlineQuery != null) {
-        String query = inlineQuery.query();
+        /*String query = inlineQuery.query();
         String offset = inlineQuery.offset();
 
         VideosPage videosPage = videosListService.searchVideo(query, offset);
@@ -99,7 +118,17 @@ public class BotPollingJob {
         telegramBot.execute(
             update,
             new AnswerInlineQuery(inlineQuery.id(), results.toArray(new InlineQueryResult[0]))
-                .nextOffset(videosPage.getNextOffset()));
+                .nextOffset(videosPage.getNextOffset()));*/
+        telegramBot.execute(
+            update,
+            new AnswerInlineQuery(
+                inlineQuery.id(),
+                new InlineQueryResultArticle(
+                        "4",
+                        Emoji.WARN.msg("This bot is deprecated"),
+                        Emoji.WARN.msg("This bot is deprecated. Use @VideoOtvetBot instead"))
+                    .description("Use @VideoOtvetBot instead")
+                    .url("https://t.me/VideoOtvetBot")));
       }
 
       getUpdates.offset(update.updateId() + 1);

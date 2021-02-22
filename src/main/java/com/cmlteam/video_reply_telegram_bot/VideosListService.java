@@ -36,4 +36,8 @@ public class VideosListService {
   public void postConstruct() {
     log.info("Videos: " + videosListProperties.getList().size());
   }
+
+  public List<Video> getAll() {
+    return videosListProperties.getList();
+  }
 }
