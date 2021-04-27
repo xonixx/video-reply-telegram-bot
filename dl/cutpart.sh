@@ -3,7 +3,7 @@
 file=$1
 start=$2
 duration=$3
-nosound=1
+nosound=0
 
 if (( 1 == nosound ))
 then
@@ -13,6 +13,7 @@ else
 fi
 
 file_out=${file/.mp4/_cut.mp4}
+file_out=${file_out/.MP4/_cut.mp4}
 
 if [[ -z "$duration" ]]
 then
