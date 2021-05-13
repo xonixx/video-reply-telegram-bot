@@ -12,8 +12,9 @@ else
   ffmpeg_cmd="-c copy"
 fi
 
+
+file=${file/.MP4/.mp4}
 file_out=${file/.mp4/_cut.mp4}
-file_out=${file_out/.MP4/_cut.mp4}
 
 if [[ -z "$duration" ]]
 then
