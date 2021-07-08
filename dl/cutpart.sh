@@ -9,7 +9,8 @@ if (( 1 == nosound ))
 then
   ffmpeg_cmd="-vcodec copy -filter:a volume=0"
 else
-  ffmpeg_cmd="-c copy"
+#  ffmpeg_cmd="-c copy"
+  ffmpeg_cmd=""
 fi
 
 
