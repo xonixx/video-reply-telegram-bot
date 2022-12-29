@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 #YTDL=youtube-dl
-YTDL="python39 /usr/local/bin/yt-dlp"
+#YTDL="python39 /usr/local/bin/yt-dlp"
+YTDL="yt-dlp"
 
 (( i = 0 ))
 for f in $(cat 1.txt) ; do
